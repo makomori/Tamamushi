@@ -16,27 +16,52 @@ public enum Direction {
 public class TMGradientNavigationBar: NSObject {
     private var gradientColors:[TMColor] = []
 
-    public func setBarGradientColor(direction: Direction, typeName: String) {
+    public override init() {
+        super.init()
         loadColors()
-        let matchedGradientColors = gradientColors.filter { $0.name == typeName }
-        if matchedGradientColors.count > 0 {
-            let gradientColor = matchedGradientColors[0]
-            if let startColor = gradientColor.startColor, let endColor = gradientColor.endColor {
-                setBacrGradientColor(direction: direction, startColor: startColor, endColor: endColor)
-            } else {
-                print("colors are not specified in JSON file")
-            }
-        } else {
-            print("specified type name doesn't match any of the gradient colors")
+    }
+
+    public func setInitialBarGradientColor(direction: Direction, typeName: String) {
+        if let gradientColor = gradientColorWithName(name: typeName) {
+            let image = generateGradientImage(direction: direction, startColor: gradientColor.startColor, endColor: gradientColor.endColor)
+            setImageToNavigationBar(image: image)
         }
     }
 
-    public func setBacrGradientColor(direction: Direction, startColor: UIColor, endColor: UIColor) {
+    public func setInitialBarGradientColor(direction: Direction, startColor: UIColor, endColor: UIColor) {
         let image = generateGradientImage(direction: direction, startColor: startColor, endColor: endColor)
         setImageToNavigationBar(image: image)
     }
 
-    public func generateGradientImage(direction: Direction, startColor: UIColor, endColor: UIColor) -> UIImage {
+    public func setGradientColorOnNavigationBar(bar: UINavigationBar, direction: Direction, typeName: String) {
+        if let gradientColor = gradientColorWithName(name: typeName) {
+            let image = generateGradientImage(direction: direction, startColor: gradientColor.startColor, endColor: gradientColor.endColor)
+            bar.setBackgroundImage(image, for: .default)
+        }
+    }
+
+    public func setGradientColorOnNavigationBar(bar: UINavigationBar, direction: Direction, startColor: UIColor, endColor: UIColor) {
+        let image = generateGradientImage(direction: direction, startColor: startColor, endColor: endColor)
+        bar.setBackgroundImage(image, for: .default)
+    }
+
+    private func gradientColorWithName(name: String) -> TMColor? {
+        let matchedGradientColors = gradientColors.filter { $0.name == name }
+        if matchedGradientColors.count > 0 {
+            let gradientColor = matchedGradientColors[0]
+            if let _ = gradientColor.startColor, let _ = gradientColor.endColor {
+                return gradientColor
+            } else {
+                print("colors are not specified in JSON file")
+                return nil
+            }
+        } else {
+            print("specified type name doesn't match any of the gradient colors")
+            return nil
+        }
+    }
+
+    private func generateGradientImage(direction: Direction, startColor: UIColor, endColor: UIColor) -> UIImage {
         let gradientLayer = CAGradientLayer()
         let sizeLength = UIScreen.main.bounds.size.height * 2
         let navBarFrame = CGRect(x: 0, y: 0, width: sizeLength, height: 64)
@@ -56,7 +81,6 @@ public class TMGradientNavigationBar: NSObject {
     }
 
     private func setImageToNavigationBar(image: UIImage) {
-        UINavigationBar.appearance().isOpaque = false
         UINavigationBar.appearance().setBackgroundImage(image, for: .default)
     }
 

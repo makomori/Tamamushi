@@ -9,9 +9,9 @@
 import UIKit
 
 struct TMColor {
-    var startColor: UIColor?
-    var endColor: UIColor?
-    var name: String?
+    var startColor: UIColor!
+    var endColor: UIColor!
+    var name: String!
 
     init(startColor: UIColor, endColor: UIColor, name: String) {
         self.startColor = startColor
