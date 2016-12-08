@@ -12,16 +12,17 @@ import Tamamushi
 class TableViewController: UITableViewController {
 
     @IBOutlet var directionSwitchButton: UIBarButtonItem!
-
     let colorNames = [
         "SoundCloud",
         "Facebook Messenger",
         "Instagram",
         "Flickr",
         "Vine",
-        "Green to dark"
+        "YouTube",
+        "Pinky",
+        "Sunrise"
     ]
-
+    var lastSelectedIndexPath = IndexPath(row: 0, section: 0)
     var gradientDirection = Direction.vertical
 
     override func viewDidLoad() {
@@ -37,11 +38,18 @@ class TableViewController: UITableViewController {
         switch gradientDirection {
         case .vertical:
             gradientDirection = .horizontal
-            directionSwitchButton.title = "horizontal"
+            directionSwitchButton.title = "vertical"
         case .horizontal:
             gradientDirection = .vertical
-            directionSwitchButton.title = "vertical"
+            directionSwitchButton.title = "horizontal"
         }
+        if let bar = self.navigationController?.navigationBar {
+            setGradientBarWithIndexPath(indexPath: lastSelectedIndexPath, onBar: bar)
+        }
+    }
+
+    func setGradientBarWithIndexPath(indexPath: IndexPath, onBar: UINavigationBar) {
+        TMGradientNavigationBar().setGradientColorOnNavigationBar(bar: onBar, direction: gradientDirection, typeName: colorNames[indexPath.row])
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -56,7 +64,12 @@ class TableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let bar = self.navigationController?.navigationBar {
-            TMGradientNavigationBar().setGradientColorOnNavigationBar(bar: bar, direction: gradientDirection, typeName: colorNames[indexPath.row])
+            setGradientBarWithIndexPath(indexPath: indexPath, onBar: bar)
+            lastSelectedIndexPath = indexPath
         }
+    }
+
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.1
     }
 }

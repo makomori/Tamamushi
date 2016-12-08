@@ -59,7 +59,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="XrG-PN-ODv">
-                        <barButtonItem key="rightBarButtonItem" title="Vertical" id="lc8-vG-Syk">
+                        <barButtonItem key="rightBarButtonItem" title="horizontal" id="lc8-vG-Syk">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="directionButtonTapped:" destination="OR8-fU-3UN" id="ycW-eL-co9"/>
