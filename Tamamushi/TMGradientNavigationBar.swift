@@ -8,6 +8,7 @@
 
 import UIKit
 
+// Gradient color direction
 public enum Direction {
     case vertical
     case horizontal
@@ -24,13 +25,13 @@ public class TMGradientNavigationBar: NSObject {
     public func setInitialBarGradientColor(direction: Direction, typeName: String) {
         if let gradientColor = gradientColorWithName(name: typeName) {
             let image = generateGradientImage(direction: direction, startColor: gradientColor.startColor, endColor: gradientColor.endColor)
-            setImageToNavigationBar(image: image)
+            setInitialImageToNavigationBar(image: image)
         }
     }
 
     public func setInitialBarGradientColor(direction: Direction, startColor: UIColor, endColor: UIColor) {
         let image = generateGradientImage(direction: direction, startColor: startColor, endColor: endColor)
-        setImageToNavigationBar(image: image)
+        setInitialImageToNavigationBar(image: image)
     }
 
     public func setGradientColorOnNavigationBar(bar: UINavigationBar, direction: Direction, typeName: String) {
@@ -40,11 +41,13 @@ public class TMGradientNavigationBar: NSObject {
         }
     }
 
+    // Method to set navigationBar gradient from UIViewController which has NavigationBar
     public func setGradientColorOnNavigationBar(bar: UINavigationBar, direction: Direction, startColor: UIColor, endColor: UIColor) {
         let image = generateGradientImage(direction: direction, startColor: startColor, endColor: endColor)
         bar.setBackgroundImage(image, for: .default)
     }
 
+    // Extract gradient color with the name specified
     private func gradientColorWithName(name: String) -> TMColor? {
         let matchedGradientColors = gradientColors.filter { $0.name == name }
         if matchedGradientColors.count > 0 {
@@ -61,6 +64,7 @@ public class TMGradientNavigationBar: NSObject {
         }
     }
 
+    // Create UIImage with the gradient specified
     private func generateGradientImage(direction: Direction, startColor: UIColor, endColor: UIColor) -> UIImage {
         let gradientLayer = CAGradientLayer()
         let sizeLength = UIScreen.main.bounds.size.height * 2
@@ -80,10 +84,12 @@ public class TMGradientNavigationBar: NSObject {
         return outputImage!
     }
 
-    private func setImageToNavigationBar(image: UIImage) {
+    // Method to set image from AppDelegate
+    private func setInitialImageToNavigationBar(image: UIImage) {
         UINavigationBar.appearance().setBackgroundImage(image, for: .default)
     }
 
+    // Load gradient colors form json file
     private func loadColors() {
         if let path = Bundle.init(for: TMGradientNavigationBar.self).path(forResource: "gradients", ofType: "json") {
             do {
