@@ -16,7 +16,7 @@ Will be available soon.
 ```import Tamamushi``` in the class you set gradient UINavigationBar
  
 ### In AppDelegate
-```
+``` Swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     TMGradientNavigationBar().setInitialBarGradientColor(direction: .vertical, typeName: "SoundCloud")
     return true
@@ -25,7 +25,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 
 ### In UIViewController(with NavigationBar)
 
-```
+``` Swift
 override func viewDidLoad() {
     super.viewDidLoad()  
     TMGradientNavigationBar().setGradientColorOnNavigationBar(bar: (self.navigationController?.navigationBar)!, direction: .vertical, typeName: "Facebook Messenger")
@@ -36,7 +36,7 @@ override func viewDidLoad() {
 ### Using defined colors
 You can use gradient color sets defined in gradients.json.
 
-```
+``` Swift
 TMGradientNavigationBar().setInitialBarGradientColor(direction: .vertical, typeName: "SoundCloud")
 ```
 Please look at the ist of gradient colors available.
@@ -44,7 +44,7 @@ Please look at the ist of gradient colors available.
 ### Using original colors
 Of course you can use original gradient colors.
 
-```
+``` Swift
 TMGradientNavigationBar().setInitialBarGradientColor(direction: .horizontal, startColor: .red, endColor: .blue)
 ```
 
