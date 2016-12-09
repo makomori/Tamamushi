@@ -13,9 +13,14 @@
         <scene sceneID="eut-fK-syx">
             <objects>
                 <navigationController id="6mx-Rp-VWb" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Hfb-tK-nOi">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="Hfb-tK-nOi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="OR8-fU-3UN" kind="relationship" relationship="rootViewController" id="Qz5-XJ-rvT"/>
@@ -25,12 +30,12 @@
             </objects>
             <point key="canvasLocation" x="-767" y="37"/>
         </scene>
-        <!--Table View Controller-->
+        <!--SoundCloud-->
         <scene sceneID="6aX-Z2-3uu">
             <objects>
                 <tableViewController id="OR8-fU-3UN" customClass="TableViewController" customModule="Demo" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="9Y7-XK-Ttv">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -58,8 +63,8 @@
                             <outlet property="delegate" destination="OR8-fU-3UN" id="H2t-nc-5rj"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="XrG-PN-ODv">
-                        <barButtonItem key="rightBarButtonItem" title="horizontal" id="lc8-vG-Syk">
+                    <navigationItem key="navigationItem" title="SoundCloud" id="XrG-PN-ODv">
+                        <barButtonItem key="rightBarButtonItem" title="Horizontal" id="lc8-vG-Syk">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="directionButtonTapped:" destination="OR8-fU-3UN" id="ycW-eL-co9"/>

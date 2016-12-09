@@ -15,12 +15,25 @@ class TableViewController: UITableViewController {
     let colorNames = [
         "SoundCloud",
         "Facebook Messenger",
-        "Instagram",
         "Flickr",
         "Vine",
         "YouTube",
         "Pinky",
-        "Sunrise"
+        "Sunrise",
+        "Playing with Reds",
+        "Ukraine",
+        "Curiosity blue",
+        "Between Night and Day",
+        "Timber",
+        "Passion",
+        "Master Card",
+        "Green and Blue",
+        "Inbox",
+        "Little Leaf",
+        "Alihossein",
+        "Endless River",
+        "Kyoto",
+        "Twitch"
     ]
     var lastSelectedIndexPath = IndexPath(row: 0, section: 0)
     var gradientDirection = Direction.vertical
@@ -38,12 +51,13 @@ class TableViewController: UITableViewController {
         switch gradientDirection {
         case .vertical:
             gradientDirection = .horizontal
-            directionSwitchButton.title = "vertical"
+            directionSwitchButton.title = "Vertical"
         case .horizontal:
             gradientDirection = .vertical
-            directionSwitchButton.title = "horizontal"
+            directionSwitchButton.title = "Horizontal"
         }
         if let bar = self.navigationController?.navigationBar {
+            TMGradientNavigationBar().setInitialBarGradientColor(direction: .horizontal, startColor: .red, endColor: .blue)
             setGradientBarWithIndexPath(indexPath: lastSelectedIndexPath, onBar: bar)
         }
     }
@@ -66,6 +80,8 @@ class TableViewController: UITableViewController {
         if let bar = self.navigationController?.navigationBar {
             setGradientBarWithIndexPath(indexPath: indexPath, onBar: bar)
             lastSelectedIndexPath = indexPath
+            title = colorNames[indexPath.row]
+            tableView.cellForRow(at: indexPath)?.setSelected(false, animated: true)
         }
     }
 
