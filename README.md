@@ -18,16 +18,17 @@ Will be available soon.
 ### In AppDelegate
 ```
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        TMGradientNavigationBar().setInitialBarGradientColor(direction: .vertical, typeName: "SoundCloud")
-        return true
-    }
+    TMGradientNavigationBar().setInitialBarGradientColor(direction: .vertical, typeName: "SoundCloud")
+    return true
+}
 ```
 
 ### In UIViewController(with NavigationBar)
 
 ```
 override func viewDidLoad() {
-super.viewDidLoad()  TMGradientNavigationBar().setGradientColorOnNavigationBar(bar: (self.navigationController?.navigationBar)!, direction: .vertical, typeName: "Facebook Messenger")
+    super.viewDidLoad()  
+    TMGradientNavigationBar().setGradientColorOnNavigationBar(bar: (self.navigationController?.navigationBar)!, direction: .vertical, typeName: "Facebook Messenger")
 }
 ```
 
