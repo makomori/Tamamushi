@@ -4,6 +4,10 @@ Tamamushi is an easy to use gradient UINavigationBar written in Swift 3. You can
 
 And "Tamamushi" is the Japanese name of the insect which has beautiful gradient color wings.
 
+## Requirements
+- Swift 3
+- Xcode 8
+
 ## Installation
 ### Cocoapods
 ```
