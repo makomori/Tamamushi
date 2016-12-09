@@ -52,3 +52,6 @@ TMGradientNavigationBar().setInitialBarGradientColor(direction: .horizontal, sta
 you can choose the direction of gradation. (Default is vertical)
 
 ```.horizontal```, or ```.vertical```
+
+## License
+This library is released with MIT license. And as a source of colors, JSON file from uiGradients by ghosh is used.
