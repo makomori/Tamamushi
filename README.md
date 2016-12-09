@@ -1,3 +1,4 @@
+![Header of Tamamushi](https://github.com/makomori/Tamamushi/blob/master/tamamushi_header.png)
 # Tamamushi
 Tamamushi is an easy to use gradient UINavigationBar written in Swift 3. You can use already defined gradient color sets like Facebook Messenger, YouTube, SoundCloud or other cool gradient color sets.
 
