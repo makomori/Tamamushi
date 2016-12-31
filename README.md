@@ -39,7 +39,8 @@ override func viewDidLoad() {
 
 ## Customization
 ### Using defined colors
-You can use gradient color sets defined in gradients.json.
+You can use gradient color 
+defined in [gradients.json](https://github.com/makomori/Tamamushi/blob/master/Tamamushi/gradients.json).
 
 ``` Swift
 TMGradientNavigationBar().setInitialBarGradientColor(direction: .vertical, typeName: "SoundCloud")
