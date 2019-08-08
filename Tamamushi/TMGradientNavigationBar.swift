@@ -94,7 +94,7 @@ public class TMGradientNavigationBar: NSObject {
         if let path = Bundle.init(for: TMGradientNavigationBar.self).path(forResource: "gradients", ofType: "json") {
             do {
                 let data = try NSData(contentsOfFile: path, options: NSData.ReadingOptions.mappedIfSafe)
-                if let parsedData = try? JSONSerialization.jsonObject(with: data as Data) as! [[String: Any]] {
+                if let parsedData = try? JSONSerialization.jsonObject(with: data as Data) as? [[String: Any]] {
                     parsedData.forEach({ (eachData) in
                         let name = eachData["name"] as! String
                         var colors = eachData["colors"] as! [String]
