@@ -24,7 +24,7 @@ public class TMGradientNavigationBar: NSObject {
 
     public func setInitialBarGradientColor(direction: Direction, typeName: String) {
         if let gradientColor = gradientColorWithName(name: typeName) {
-            let image = generateGradientImage(direction: direction, startColor: gradientColor.startColor, endColor: gradientColor.endColor)
+            let image = generateGradientImage(direction: direction, startColor: gradientColor.color.start, endColor: gradientColor.color.end)
             setInitialImageToNavigationBar(image: image)
         }
     }
@@ -36,7 +36,7 @@ public class TMGradientNavigationBar: NSObject {
 
     public func setGradientColorOnNavigationBar(bar: UINavigationBar, direction: Direction, typeName: String) {
         if let gradientColor = gradientColorWithName(name: typeName) {
-            let image = generateGradientImage(direction: direction, startColor: gradientColor.startColor, endColor: gradientColor.endColor)
+            let image = generateGradientImage(direction: direction, startColor: gradientColor.color.start, endColor: gradientColor.color.end)
             bar.setBackgroundImage(image, for: .default)
         }
     }
@@ -51,13 +51,7 @@ public class TMGradientNavigationBar: NSObject {
     private func gradientColorWithName(name: String) -> TMColor? {
         let matchedGradientColors = gradientColors.filter { $0.name == name }
         if matchedGradientColors.count > 0 {
-            let gradientColor = matchedGradientColors[0]
-            if let _ = gradientColor.startColor, let _ = gradientColor.endColor {
-                return gradientColor
-            } else {
-                print("colors are not specified in JSON file")
-                return nil
-            }
+            return matchedGradientColors.first
         } else {
             print("specified type name doesn't match any of the gradient colors")
             return nil
@@ -68,7 +62,7 @@ public class TMGradientNavigationBar: NSObject {
     private func generateGradientImage(direction: Direction, startColor: UIColor, endColor: UIColor) -> UIImage {
         let gradientLayer = CAGradientLayer()
         let sizeLength = UIScreen.main.bounds.size.height * 2
-        let navBarFrame = CGRect(x: 0, y: 0, width: sizeLength, height: 64)
+        let navBarFrame = CGRect(x: 0, y: 0, width: sizeLength, height: UINavigationController.navigationBarHeight())
         gradientLayer.frame = navBarFrame
         gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
 
@@ -91,24 +85,24 @@ public class TMGradientNavigationBar: NSObject {
 
     // Load gradient colors form json file
     private func loadColors() {
-        if let path = Bundle.init(for: TMGradientNavigationBar.self).path(forResource: "gradients", ofType: "json") {
-            do {
-                let data = try NSData(contentsOfFile: path, options: NSData.ReadingOptions.mappedIfSafe)
-                if let parsedData = try? JSONSerialization.jsonObject(with: data as Data) as? [[String: Any]] {
-                    parsedData.forEach({ (eachData) in
-                        let name = eachData["name"] as! String
-                        var colors = eachData["colors"] as! [String]
-                        let startColor = UIColor.hexStr(colors[0] as NSString, alpha: 1.0)
-                        let endColor = UIColor.hexStr(colors[1] as NSString, alpha: 1.0)
-                        let gradientColor = TMColor(startColor: startColor, endColor: endColor, name: name)
-                        gradientColors.append(gradientColor)
-                    })
-                }
-            } catch {
-                print("error occured")
-            }
-        } else {
-            print("no json file found")
+        guard let path = Bundle(for: TMGradientNavigationBar.self).path(forResource: "gradients", ofType: "json") else {
+            print("error occured")
+            return
         }
+        
+        guard let data = try? Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe),
+            let _colors = try? JSONDecoder().decode([TMColor].self, from: data) else {
+                print("no json file found")
+                return
+        }
+        
+        gradientColors = _colors
+    }
+}
+
+extension UINavigationController {
+    static public func navigationBarHeight() -> CGFloat {
+        let nc = UINavigationController(rootViewController: UIViewController(nibName: nil, bundle: nil))
+        return nc.navigationBar.bounds.height + UIApplication.shared.statusBarFrame.height
     }
 }
